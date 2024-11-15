@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sample-cd
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/John3210of/argoCD.git
+    targetRevision: main
+    path: samples
+    directory:
+      recurse: true
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
